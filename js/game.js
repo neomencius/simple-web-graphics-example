@@ -36,5 +36,5 @@ class Graphics extends SimpleWebGraphics {
   }
 }
 
-const graphics = new Graphics('root')
+const graphics = new Graphics(document.getElementById('root'))
 graphics.runGraphics()
