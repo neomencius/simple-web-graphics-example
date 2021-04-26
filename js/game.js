@@ -1,4 +1,4 @@
-import SimpleWebGraphics from './simple-web-graphics.js'
+import SimpleWebGraphics from 'simple-web-graphics'
 
 class Graphics extends SimpleWebGraphics {
   setup = () => {
