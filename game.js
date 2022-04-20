@@ -1,6 +1,8 @@
 import {
   makeGraphicsWindow,
   runGraphics,
+  getWindowWidth,
+  getWindowHeight,
   fillCircle,
   fillRectangle,
   isKeyPressed
@@ -9,8 +11,6 @@ import {
 makeGraphicsWindow(document.getElementById('canvas'))
 
 const paddleHeight = 80
-const windowWidth = 480
-const windowHeight = 320
 
 function isBallHittingPaddle(ballX, ballY, ballXVel, paddleX, paddleY) {
   const inVerticalBounds = ballY >= paddleY && ballY <= paddleY + paddleHeight
@@ -23,16 +23,19 @@ function isBallHittingPaddle(ballX, ballY, ballXVel, paddleX, paddleY) {
 // this function is called once to initialize your new world
 
 function startWorld(world) {
-  world.paddle1X = 15
-  world.paddle1Y = windowHeight / 2
+  world.windowWidth = getWindowWidth()
+  world.windowHeight = getWindowHeight()
 
-  world.paddle2X = windowWidth - 15
-  world.paddle2Y = windowHeight / 2
+  world.paddle1X = 15
+  world.paddle1Y = world.windowHeight / 2
+
+  world.paddle2X = world.windowWidth - 15
+  world.paddle2Y = world.windowHeight / 2
 
   const randomAngle = 2 * Math.PI * Math.random()
 
-  world.ballX = windowWidth / 2
-  world.ballY = windowHeight / 2
+  world.ballX = world.windowWidth / 2
+  world.ballY = world.windowHeight / 2
   world.ballXVel = 3 * Math.cos(randomAngle)
   world.ballYVel = 3 * Math.sin(randomAngle),
 
@@ -49,7 +52,7 @@ function updateWorld(world) {
   if (isKeyPressed('q') && world.paddle1Y > 0) {
     world.paddle1Y -= 3
   }
-  if (isKeyPressed('w') && world.paddle1Y < windowHeight - paddleHeight) {
+  if (isKeyPressed('w') && world.paddle1Y < world.windowHeight - paddleHeight) {
     world.paddle1Y += 3
   }
 
@@ -57,7 +60,7 @@ function updateWorld(world) {
   if (isKeyPressed('o') && world.paddle2Y > 0) {
     world.paddle2Y -= 3
   }
-  if (isKeyPressed('p') && world.paddle2Y < windowHeight - paddleHeight) {
+  if (isKeyPressed('p') && world.paddle2Y < world.windowHeight - paddleHeight) {
     world.paddle2Y += 3
   }
 
@@ -67,11 +70,11 @@ function updateWorld(world) {
     world.ballXVel *= -1
   }
 
-  if (world.ballY <= 0 || world.ballY >= windowHeight) {
+  if (world.ballY <= 0 || world.ballY >= world.windowHeight) {
     world.ballYVel *= -1
   }
 
-  if (world.ballX <= 0 || world.ballX >= windowWidth) {
+  if (world.ballX <= 0 || world.ballX >= world.windowWidth) {
     world.gameOver = true
   }
 

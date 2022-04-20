@@ -11,6 +11,6 @@
   "author": "Eric Wang",
   "dependencies": {
     "parcel-bundler": "^1.12.5",
-    "simple-web-graphics": "latest"
+    "simple-web-graphics": "^0.0.6"
   }
 }
