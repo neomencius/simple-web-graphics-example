@@ -1,78 +1,93 @@
-import SimpleWebGraphics from 'simple-web-graphics'
+import {
+  makeGraphicsWindow,
+  runGraphics,
+  fillCircle,
+  fillRectangle,
+  isKeyPressed
+} from 'simple-web-graphics'
+
+makeGraphicsWindow(document.getElementById('canvas'))
 
 const paddleHeight = 80
+const windowWidth = 480
+const windowHeight = 320
 
-const isBallHittingPaddle = (ball, paddle) => {
-  const inVerticalBounds = ball.y >= paddle.y && ball.y <= paddle.y + paddleHeight
-  const crossesPaddle = (ball.x - paddle.x) * (ball.x + ball.xVel - paddle.x) <= 0
+function isBallHittingPaddle(ballX, ballY, ballXVel, paddleX, paddleY) {
+  const inVerticalBounds = ballY >= paddleY && ballY <= paddleY + paddleHeight
+  const crossesPaddle = (ballX - paddleX) * (ballX + ballXVel - paddleX) <= 0
+
   return inVerticalBounds && crossesPaddle
 }
 
-class Graphics extends SimpleWebGraphics {
-  setup = () => {
-    this.paddle1 = {
-      x: 15,
-      y: this.canvasHeight / 2
-    }
+////////////////////////////////////////////////////////////
+// this function is called once to initialize your new world
 
-    this.paddle2 = {
-      x: this.canvasWidth - 15,
-      y: this.canvasHeight / 2
-    }
+function startWorld(world) {
+  world.paddle1X = 15
+  world.paddle1Y = windowHeight / 2
 
-    const randomAngle = 2 * 3.14159 * Math.random()
+  world.paddle2X = windowWidth - 15
+  world.paddle2Y = windowHeight / 2
 
-    this.ball = {
-      x: this.canvasWidth / 2,
-      y: this.canvasHeight / 2,
-      xVel: 3 * Math.cos(randomAngle),
-      yVel: 3 * Math.sin(randomAngle),
-    }
+  const randomAngle = 2 * Math.PI * Math.random()
 
-    this.gameOver = false
-  }
+  world.ballX = windowWidth / 2
+  world.ballY = windowHeight / 2
+  world.ballXVel = 3 * Math.cos(randomAngle)
+  world.ballYVel = 3 * Math.sin(randomAngle),
 
-  update = () => {
-    if (this.gameOver) return
-
-    // player 1 controls
-    if (this.isKeyDown('q') && this.paddle1.y > 0) {
-      this.paddle1.y -= 3
-    }
-    if (this.isKeyDown('w') && this.paddle1.y < this.canvasHeight - paddleHeight) {
-      this.paddle1.y += 3
-    }
-
-     // player 2 controls
-    if (this.isKeyDown('o') && this.paddle2.y > 0) {
-      this.paddle2.y -= 3
-    }
-    if (this.isKeyDown('p') && this.paddle2.y < this.canvasHeight - paddleHeight) {
-      this.paddle2.y += 3
-    }
-
-    if (isBallHittingPaddle(this.ball, this.paddle1) || isBallHittingPaddle(this.ball, this.paddle2)) {
-      this.ball.xVel *= -1
-    }
-
-    if (this.ball.y <= 0 || this.ball.y >= this.canvasHeight) {
-      this.ball.yVel *= -1
-    }
-
-    if (this.ball.x <= 0 || this.ball.x >= this.canvasWidth) {
-      this.gameOver = true
-    }
-
-    this.ball.x += this.ball.xVel
-    this.ball.y += this.ball.yVel
-  }
-
-  draw = () => {
-    this.fillRect(this.paddle1.x, this.paddle1.y, 5, paddleHeight)
-    this.fillRect(this.paddle2.x, this.paddle2.y, 5, paddleHeight)
-    this.fillRect(this.ball.x, this.ball.y, 5, 5)
-  }
+  world.gameOver = false
 }
 
-const graphics = new Graphics(document.getElementById('root'))
-graphics.runGraphics()
+////////////////////////////////////////////////////////////
+// this function is called every frame to update your world
+
+function updateWorld(world) {
+  if (world.gameOver) return
+
+  // player 1 controls
+  if (isKeyPressed('q') && world.paddle1Y > 0) {
+    world.paddle1Y -= 3
+  }
+  if (isKeyPressed('w') && world.paddle1Y < windowHeight - paddleHeight) {
+    world.paddle1Y += 3
+  }
+
+  // player 2 controls
+  if (isKeyPressed('o') && world.paddle2Y > 0) {
+    world.paddle2Y -= 3
+  }
+  if (isKeyPressed('p') && world.paddle2Y < windowHeight - paddleHeight) {
+    world.paddle2Y += 3
+  }
+
+  const hitPaddle1 = isBallHittingPaddle(world.ballX, world.ballY, world.ballXVel, world.paddle1X, world.paddle1Y)
+  const hitPaddle2 = isBallHittingPaddle(world.ballX, world.ballY, world.ballXVel, world.paddle2X, world.paddle2Y)
+  if (hitPaddle1 || hitPaddle2) {
+    world.ballXVel *= -1
+  }
+
+  if (world.ballY <= 0 || world.ballY >= windowHeight) {
+    world.ballYVel *= -1
+  }
+
+  if (world.ballX <= 0 || world.ballX >= windowWidth) {
+    world.gameOver = true
+  }
+
+  world.ballX += world.ballXVel
+  world.ballY += world.ballYVel
+}
+
+////////////////////////////////////////////////////////////
+// this function is called every frame to draw your world
+
+function drawWorld(world) {
+  fillRectangle(world.paddle1X, world.paddle1Y, 5, paddleHeight, 'blue')
+  fillRectangle(world.paddle2X, world.paddle2Y, 5, paddleHeight, 'green')
+  fillCircle(world.ballX, world.ballY, 5, 'red')
+}
+
+////////////////////////////////////////////////////////////
+
+runGraphics(startWorld, updateWorld, drawWorld)

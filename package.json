@@ -6,11 +6,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/soft-boy/simple-web-graphics-example.git"
+    "url": "git+https://github.com/neomencius/simple-web-graphics-example.git"
   },
   "author": "Eric Wang",
   "dependencies": {
     "parcel-bundler": "^1.12.5",
-    "simple-web-graphics": "0.0.4"
+    "simple-web-graphics": "latest"
   }
 }
