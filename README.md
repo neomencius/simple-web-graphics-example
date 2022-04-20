@@ -3,6 +3,13 @@
 npm install
 npm start
 ```
+
+# Live Demo
+[https://simple-web-graphics-example-8mjtnrzvi-neomencius.vercel.app/](https://simple-web-graphics-example-8mjtnrzvi-neomencius.vercel.app/)
+
+# Andrew Merrill's graphics.py Reference
+[http://inside.catlin.edu/site/compsci/resources/python/graphics/PythonGraphics.html](http://inside.catlin.edu/site/compsci/resources/python/graphics/PythonGraphics.html)
+
 # game.js
 just like from Intro to CS~
 ```
