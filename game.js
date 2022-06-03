@@ -6,7 +6,7 @@ import {
   fillCircle,
   fillRectangle,
   isKeyPressed
-} from 'simple-web-graphics'
+} from '@soft-boy/graphics.js'
 
 makeGraphicsWindow(document.getElementById('canvas'))
 
