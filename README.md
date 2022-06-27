@@ -12,7 +12,7 @@ npm start
 
 # game.js
 just like from Intro to CS~
-```
+```js
 import {
   makeGraphicsWindow,
   runGraphics,
