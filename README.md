@@ -5,10 +5,7 @@ npm start
 ```
 
 # Live Demo
-[https://simple-web-graphics-example-8mjtnrzvi-neomencius.vercel.app/](https://simple-web-graphics-example-8mjtnrzvi-neomencius.vercel.app/)
-
-# Andrew Merrill's graphics.py Reference
-[http://inside.catlin.edu/site/compsci/resources/python/graphics/PythonGraphics.html](http://inside.catlin.edu/site/compsci/resources/python/graphics/PythonGraphics.html)
+[https://630daf98cfd2db0b4c33ef0f--mellifluous-squirrel-a6597a.netlify.app/](https://630daf98cfd2db0b4c33ef0f--mellifluous-squirrel-a6597a.netlify.app/)
 
 # game.js
 just like from Intro to CS~
@@ -21,9 +18,9 @@ import {
   fillCircle,
   fillRectangle,
   isKeyPressed
-} from 'simple-web-graphics'
+} from '@soft-boy/graphics.js'
 
-makeGraphicsWindow(document.getElementById('canvas'))
+makeGraphicsWindow(480, 320, document.getElementById('canvas'))
 
 const paddleHeight = 80
 
