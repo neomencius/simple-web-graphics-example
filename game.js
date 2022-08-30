@@ -8,7 +8,7 @@ import {
   isKeyPressed
 } from '@soft-boy/graphics.js'
 
-makeGraphicsWindow(document.getElementById('canvas'))
+makeGraphicsWindow(480, 320, document.getElementById('canvas'))
 
 const paddleHeight = 80
 
