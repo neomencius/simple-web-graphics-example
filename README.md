@@ -8,7 +8,6 @@ npm start
 [https://630daf98cfd2db0b4c33ef0f--mellifluous-squirrel-a6597a.netlify.app/](https://630daf98cfd2db0b4c33ef0f--mellifluous-squirrel-a6597a.netlify.app/)
 
 # game.js
-just like from Intro to CS~
 ```js
 import {
   makeGraphicsWindow,
